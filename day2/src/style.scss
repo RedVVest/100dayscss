@@ -1,0 +1,138 @@
+*{
+  box-sizing: border-box;
+}
+
+@mixin centredAbsolute{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+@mixin size($width, $height){
+  width: $width;
+  height: $height;
+}
+
+@mixin flex($display: flex, $align-items, $justify-content, $flex-direction: column){
+  display: $display;
+  align-items: $align-items;
+  justify-content: $justify-content;
+  flex-direction: $flex-direction;
+}
+
+
+$menu-icon-line-height: 8px;
+$menu-icon-line-space: 14px;
+$menu-icon-line-offsetY: $menu-icon-line-height + $menu-icon-line-space;
+$menu-icon-height: (3*$menu-icon-line-height) + (2*$menu-icon-line-space);
+$cubic-bezier-in: cubic-bezier(0.30,1,0.70,1);
+$cubic-bezier-out: cubic-bezier(1,0.70,1,0.30);
+
+
+.app{
+  @include centredAbsolute;
+  @include size(30vw, 30vw);
+  @include flex($align-items: center, $justify-content: center);
+  background: linear-gradient(203deg, rgba(19,215,56,1) 0%, rgba(16,77,32,1) 45%, rgba(5,64,20,1) 100%);
+  .center{
+    @include size(5vw, $menu-icon-height);
+    span{
+      @include size(5vw, $menu-icon-line-height);
+      border-radius: 2px;
+      background: white;
+      display: block;
+      z-index: 1;
+      box-shadow: 1px 1px 5px black;
+    }
+    .spanTwo{
+      margin: $menu-icon-line-space 0;
+      z-index: 3;
+    }
+    &.active{
+      .spanOne{
+        animation: animationOpenOne 1s $cubic-bezier-in forwards;
+      }
+      .spanTwo{
+        animation: animationOpenTwo 1s $cubic-bezier-in forwards;
+      }
+      .spanThree{
+        animation: animationOpenThree 1s $cubic-bezier-in forwards;
+      }
+    }
+    &.inactive{
+      .spanOne{
+        animation: animationCloseOne 1s $cubic-bezier-in forwards;
+      }
+      .spanTwo{
+        animation: animationCloseTwo 1s $cubic-bezier-in forwards;
+      }
+      .spanThree{
+        animation: animationCloseThree 1s $cubic-bezier-in forwards;
+      }
+    }
+    }
+  }
+
+
+
+@keyframes animationOpenOne {
+  0% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+  }50%{
+      transform: translate3d(0, $menu-icon-line-offsetY, 0) rotate(0deg);
+    }100%{
+     transform: translate3d(0, $menu-icon-line-offsetY, 0) rotate(45deg);
+   }
+}
+
+@keyframes animationOpenTwo {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }50%{
+     transform: translate3d(0, 0, 0) rotate(0deg);
+   }100%{
+      transform: translate3d(0, 0, 0) rotate(-45deg);
+    }
+}
+
+@keyframes animationOpenThree {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }50%{
+     transform: translate3d(0, -$menu-icon-line-offsetY, 0) rotate(0deg);
+   }100%{
+      transform: translate3d(0, -$menu-icon-line-offsetY, 0) rotate(45deg);
+    }
+}
+
+@keyframes animationCloseOne {
+  0% {
+    transform: translate3d(0, $menu-icon-line-offsetY, 0) rotate(45deg);
+
+  }50%{
+     transform: translate3d(0, $menu-icon-line-offsetY, 0) rotate(0deg);
+   }100%{
+     transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+}
+
+@keyframes animationCloseTwo {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-45deg);
+  }50%{
+     transform: translate3d(0, 0, 0) rotate(0deg);
+   }100%{
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+}
+
+@keyframes animationCloseThree {
+  0% {
+    transform: translate3d(0, -$menu-icon-line-offsetY, 0) rotate(45deg);
+  }50%{
+     transform: translate3d(0, -$menu-icon-line-offsetY, 0) rotate(0deg);
+   }100%{
+     transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+}
